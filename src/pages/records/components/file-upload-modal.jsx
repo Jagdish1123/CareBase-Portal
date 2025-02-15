@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 import Modal from "./Modal";
 import { IconProgress } from "@tabler/icons-react";
 
@@ -64,6 +64,22 @@ const FileUploadModal = ({
       <span className="text-md text-left text-white">{filename}</span>
     </Modal>
   );
+};
+
+FileUploadModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onFileChange: PropTypes.func.isRequired,
+  onFileUpload: PropTypes.func.isRequired,
+  uploading: PropTypes.bool,
+  uploadSuccess: PropTypes.bool,
+  filename: PropTypes.string,
+};
+
+FileUploadModal.defaultProps = {
+  uploading: false,
+  uploadSuccess: false,
+  filename: "",
 };
 
 export default FileUploadModal;

@@ -11,7 +11,9 @@ const Onboarding = () => {
   const navigate = useNavigate();
   const { user } = usePrivy();
 
-  console.log(user);
+
+
+
   const handleOnboarding = async (e) => {
     e.preventDefault();
     

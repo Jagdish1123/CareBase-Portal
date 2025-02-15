@@ -20,6 +20,27 @@ export const Users = pgTable("users", {
   createdBy: varchar("created_by").notNull(),
 });
 
+// Doctors table --Jagdish
+export const Doctors = pgTable("doctors", {
+  id: serial("id").primaryKey(),
+  name: varchar("name").notNull(),
+  specialization: varchar("specialization").notNull(),
+  experience: integer("experience").notNull(),
+  location: varchar("location").notNull(),
+  createdBy: varchar("created_by").notNull(),
+});
+
+// Many-to-Many Relationship
+export const DoctorUsers = pgTable("doctor_users", {
+  id: serial("id").primaryKey(),
+  doctorId: integer("doctor_id").references(() => Doctors.id).notNull(),
+  userId: integer("user_id").references(() => Users.id).notNull(),
+});
+
+
+
+
+
 // records schema
 export const Records = pgTable("records", {
   id: serial("id").primaryKey(),
@@ -31,3 +52,4 @@ export const Records = pgTable("records", {
   kanbanRecords: varchar("kanban_records").notNull(),
   createdBy: varchar("created_by").notNull(),
 });
+

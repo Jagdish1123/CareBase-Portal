@@ -5,7 +5,7 @@ import img from "../assets/profile.png"
 const Profile = () => {
   const { currentUser, fetchUserByEmail } = useStateContext();
   const { user } = usePrivy();
-
+  // console.log("user");
   useEffect(() => {
     if (!currentUser) {
       fetchUserByEmail(user?.email?.address);
