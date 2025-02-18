@@ -35,6 +35,10 @@
   Seamless registration and login processes to get users started with the portal.  
   Secure, privacy-focused authentication with easy onboarding.
 
+- **Patient & Doctor Login**  
+  Separate login options for **patients** and **doctors**, ensuring role-based access control.  
+  Doctors can manage patient records, while patients can track their medical history.
+
 - **Medical Record Upload & Management**  
   Efficient upload and management of patient records.  
   Supports multiple file types for medical data.
@@ -55,8 +59,17 @@
   Data is securely stored using **PostgreSQL** and managed with **Drizzle ORM**, ensuring privacy and compliance with industry standards.  
   Your records are stored with top-tier encryption and security measures.
 
+- **Real-Time Health Sync (HealthSyncAI)**  
+  Patients can sync real-time health data from wearable devices.  
+  Provides AI-powered insights for better health monitoring.
+
+- **Patient-Doctor Chat (HealthSyncAI)**  
+  Secure in-app messaging system allowing patients to chat directly with doctors.  
+  Enables quick consultations and medical advice.
+
 - **Metrics & Dashboards**  
   Track user records and visualize metrics via intuitive dashboards.  
   Gain insights into patient data and system usage.
 
 ---
+
