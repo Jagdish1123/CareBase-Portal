@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 // eslint-disable-next-line no-unused-vars
 import Sidebar from "./components/Sidebar";
@@ -20,7 +20,8 @@ import Chats_app from "./pages/Chats_app";
 const App = () => {
   const { user, authenticated, ready, login, currentUser } = useStateContext();
   const navigate = useNavigate();
-
+  const location=useLocation();
+  const isDoctor=location.pathname.startsWith('/doctor')
   useEffect(() => {
     if (ready && !authenticated) {
       login();
@@ -33,7 +34,7 @@ const App = () => {
     <div className="sm:-8 relative flex min-h-screen flex-row bg-[#13131a] p-4">
       <div className="relative mr-10 hidden sm:flex">
         {/* <Sidebar/> */}
-        <SidebarAlt />
+        {isDoctor?<SidebarAlt />:<Sidebar/> }
 
       </div>
 
@@ -49,16 +50,18 @@ const App = () => {
           <Route path="/medical-records" element={<MedicalRecords />} />
           <Route path="/medical-records/:id" element={<SingleRecordDetails />} />
           <Route path="/screening-schedules" element={<ScreeningSchedule />} />
+          <Route path="/chatbot" element={<Chatbot />} />
+          <Route path="/chat" element={<Chats_app />} />
 
           {/* Doctor Routes */}
           <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
           <Route path="/doctor-profile" element={<DoctorProfile />} />
           <Route path="/doctor-login" element={<DoctorLogin />} />
-          <Route path="/chatbot" element={<Chatbot />} />
-          {/* <Route path="/chat" element={<Chats_app />} /> */}
+          <Route path="/doctor-chat" element={<Chats_app />} />
         </Routes>
       </div>
     </div>
+    
   );
 };
 

@@ -1,5 +1,5 @@
-import { records, screening, user, apps } from "../assets";
-import chatbot from '../assets/chatbot.png';
+import { records, screening, user, apps,chat,chatbot } from "../assets";
+
 
 export const navlinks = [
   {
@@ -22,6 +22,17 @@ export const navlinks = [
     imgUrl: user,
     link: "/profile",
   },
+  {
+    name: "chatbot",
+    imgUrl: chatbot,
+    link: "/chatbot",
+  },
+  {
+    name: "chat",
+    imgUrl: chat,
+    link: "/chat",
+  },
+
 ];
 
 export const navlinksDoctor = [
@@ -36,8 +47,9 @@ export const navlinksDoctor = [
     link: "/doctor-profile",
   },
   {
-    name: "chatbot",
-    imgUrl:chatbot ,
-    link: "/chatbot",
+    name: "chat",
+    imgUrl: chat,
+    link: "/doctor-chat",
   },
+
 ];
