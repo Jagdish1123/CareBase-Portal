@@ -60,3 +60,16 @@
   Gain insights into patient data and system usage.
 
 ---
+
+## 🖼 Screenshots
+
+### Home Page  
+![Home Page](https://github.com/Jagdish1123/CareBase-Portal/blob/main/src/assets/screenshots/home.png)
+
+### AI Analysis  
+![AI Analysis](https://github.com/Jagdish1123/CareBase-Portal/blob/main/src/assets/screenshots/ai.png)
+
+### Profile Page  
+![Profile Page](https://github.com/Jagdish1123/CareBase-Portal/blob/main/src/assets/screenshots/profile.png)
+
+---
