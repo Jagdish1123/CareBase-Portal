@@ -1,4 +1,4 @@
-# CaseBase Portal 🏥✨
+# CaseBase Portal 🏥
 
 **CaseBase** is an innovative platform designed to empower healthcare professionals with AI-powered medical record analysis, personalized treatment plans, and secure storage. The platform provides an intuitive, user-friendly interface that simplifies the management and utilization of medical records. With features like user authentication, onboarding, real-time metrics, and dashboards, **CaseBase** transforms healthcare management for better patient outcomes.
 
@@ -67,25 +67,22 @@
 - Patients maintain full control of their medical data.
 - Share specific records via password-protected, temporary access links with doctors or family members.
 
-## 🔐 Secure Record Management
-- Upload, organize, and access health documents digitally.
-- Fully compliant with medical data regulations and security protocols.
+---
+
+## 📸 Screenshots
+
+| Home | Home2 |
+|------|-------|
+| ![Home](https://github.com/Jagdish1123/CareBase-Portal/blob/main/src/assets/screenshots/home.png?raw=true) | ![Home2](https://github.com/Jagdish1123/CareBase-Portal/blob/main/src/assets/screenshots/home2.png?raw=true) |
+
+| Profile | Share |
+|---------|--------|
+| ![Profile](https://github.com/Jagdish1123/CareBase-Portal/blob/main/src/assets/screenshots/profile.png?raw=true) | ![Share](https://github.com/Jagdish1123/CareBase-Portal/blob/main/src/assets/screenshots/share.png?raw=true) |
+
+| AI Analysis | Chatbot |
+|-------------|---------|
+| ![AI](https://github.com/Jagdish1123/CareBase-Portal/blob/main/src/assets/screenshots/ai.png?raw=true) | ![Chatbot](https://github.com/Jagdish1123/CareBase-Portal/blob/main/src/assets/screenshots/chatbot.png?raw=true) |
 
 ---
 
-<<<<<<< HEAD
 > 🌟 *Empowering Healthcare with AI & Secure Digital Solutions – Welcome to the Future with CaseBase!*
-=======
-## 🖼 Screenshots
-
-### Home Page  
-![Home Page](https://github.com/Jagdish1123/CareBase-Portal/blob/main/src/assets/screenshots/home.png)
-
-### AI Analysis  
-![AI Analysis](https://github.com/Jagdish1123/CareBase-Portal/blob/main/src/assets/screenshots/ai.png)
-
-### Profile Page  
-![Profile Page](https://github.com/Jagdish1123/CareBase-Portal/blob/main/src/assets/screenshots/profile.png)
-
----
->>>>>>> 984518adadbd368be9f5a832d6b4471c35747f67
