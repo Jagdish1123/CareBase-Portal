@@ -7,23 +7,16 @@ import { IconHeartHandshake } from "@tabler/icons-react";
 
 const Icon = ({ styles, name, imgUrl, isActive, disabled, handleClick }) => (
   <div
-    className={`h-[48px] w-[48px] rounded-[10px] ${isActive && isActive === name && "bg-[#2c2f32]"
-      } flex items-center justify-center ${!disabled && "cursor-pointer"
-      } ${styles}`}
-    onClick={handleClick}
+    className={`h-[48px] w-[48px] rounded-[10px] ${isActive === name && "bg-[#2c2f32]"} flex items-center justify-center ${!disabled && "cursor-pointer"} ${styles}`}
+    onClick={disabled ? null : handleClick}
   >
-    {!isActive ? (
-      <img src={imgUrl} alt="fund_logo" className="h-6 w-6" />
-    ) : (
-      <img
-        src={imgUrl}
-        alt="fund_logo"
-        className={`h-6 w-6 ${isActive !== name && "grayscale"}`}
-      />
-    )}
+    <img
+      src={imgUrl}
+      alt={name}
+      className={`h-6 w-6 ${isActive !== name && "grayscale"}`}
+    />
   </div>
 );
-
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -33,7 +26,7 @@ const Sidebar = () => {
     <div className="sticky top-5 flex h-[93vh] flex-col items-center justify-between">
       <Link to="/">
         <div className="rounded-[10px] bg-[#2c2f32] p-2">
-          <IconHeartHandshake size={40} color="#1ec070" className=" " />
+          <IconHeartHandshake size={40} color="#1ec070" />
         </div>
       </Link>
 
@@ -45,22 +38,28 @@ const Sidebar = () => {
               {...link}
               isActive={isActive}
               handleClick={() => {
-                if (!link.disabled) {
-                  setIsActive(link.name);
-                  navigate(link.link);
-                }
+                setIsActive(link.name);
+                navigate(link.link);
               }}
             />
           ))}
         </div>
 
-        <Icon styles="bg-[#1c1c24] shadow-secondary" imgUrl={sun} />
+        <Icon styles="bg-[#1c1c24] shadow-secondary" imgUrl={sun} name="sun-icon" disabled handleClick={() => {}} />
       </div>
     </div>
   );
 };
 
-// Prop validation for the Sidebar component
+Icon.propTypes = {
+  styles: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  imgUrl: PropTypes.string.isRequired,
+  isActive: PropTypes.string,
+  disabled: PropTypes.bool,
+  handleClick: PropTypes.func.isRequired,
+};
+
 Sidebar.propTypes = {
   navlinks: PropTypes.arrayOf(
     PropTypes.shape({
@@ -70,15 +69,6 @@ Sidebar.propTypes = {
       imgUrl: PropTypes.string,
     })
   ).isRequired,
-};
-// Prop validation for the Icon component
-Icon.propTypes = {
-  styles: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  imgUrl: PropTypes.string.isRequired,
-  isActive: PropTypes.string,
-  disabled: PropTypes.bool,
-  handleClick: PropTypes.func.isRequired,
 };
 
 export default Sidebar;

@@ -1,78 +1,99 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../context";
+import { motion } from "framer-motion";
+import { IconChevronRight } from "@tabler/icons-react";
 
 const UserList = () => {
-  const { fetchUsers, users, fetchUserRecords, records } = useStateContext();
+  const navigate = useNavigate();
+  const { fetchUsers, users, fetchAllUserRecords, allUserRecords } = useStateContext();
   const [loading, setLoading] = useState(true);
-  const [expanded, setExpanded] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
-      await Promise.all([fetchUsers(), fetchUserRecords()]);
+      setLoading(true);
+      await fetchUsers();
+      await fetchAllUserRecords();
       setLoading(false);
     };
     fetchData();
-  }, [fetchUsers, fetchUserRecords]);
+  }, [fetchUsers, fetchAllUserRecords]);
 
-  const toggleExpand = (userId) => {
-    setExpanded((prev) => ({ ...prev, [userId]: !prev[userId] }));
+  const userWithRecordCounts = useMemo(() => {
+    if (!users || !allUserRecords) return [];
+
+    return users.map(user => {
+      const userRecords = allUserRecords.filter(record => record.createdBy === user.createdBy);
+      return {
+        ...user,
+        recordCount: userRecords.length,
+      };
+    });
+  }, [users, allUserRecords]);
+
+  const handleRowClick = async (email) => {
+    navigate(`/user-info`, { state: { userEmail: email } });
   };
 
-  if (loading) {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        <div className="text-lg text-gray-500">Loading data...</div>
-      </div>
-    );
-  }
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+  };
 
   return (
-    <div className="mx-auto mt-16 max-w-6xl rounded-lg bg-[#1c1c24] p-8 shadow-lg">
-      <h1 className="mb-6 text-3xl font-semibold text-white text-center">User List & Records</h1>
-      {users.length === 0 ? (
-        <div className="text-lg text-gray-500 text-center">No users found.</div>
+    <div className="mx-auto mt-16 max-w-6xl rounded-2xl bg-gray-800 p-8 shadow-xl">
+      <h1 className="mb-8 text-center text-3xl font-extrabold text-white">All Patients</h1>
+
+      {loading ? (
+        <div className="flex h-40 items-center justify-center">
+          <div className="text-lg text-gray-400">Loading patient data...</div>
+        </div>
+      ) : users.length === 0 ? (
+        <div className="text-center text-lg text-gray-400">No patients found.</div>
       ) : (
-        <div className="grid grid-cols-3 gap-6 bg-[#2a2a35] p-6 rounded-lg shadow-md">
-          <div className="text-lg font-semibold text-white border-b pb-2 col-span-1">User</div>
-          <div className="text-lg font-semibold text-white border-b pb-2 col-span-2">Analysis</div>
-          {users.map((user) => (
-            <>
-              <div key={user.id} className="p-4 bg-[#323248] rounded-lg shadow-md">
-                <p className="text-lg font-semibold text-white">{user.username}</p>
-                <p className="text-sm text-gray-400">Email: {user.createdBy}</p>
-                <p className="text-sm text-gray-400">Age: {user.age || "N/A"}</p>
-                <p className="text-sm text-gray-400">Location: {user.location || "N/A"}</p>
-              </div>
-              <div className="col-span-2 p-4 bg-[#323248] rounded-lg shadow-md">
-                {records.filter(record => record.userId === user.id).length > 0 ? (
-                  records.filter(record => record.userId === user.id).map((record, index) => (
-                    <div key={record.id} className="text-sm text-gray-400">
-                      {expanded[user.id] || index < 5 ? (
-                        <p>{record.analysisResult}</p>
-                      ) : index === 5 ? (
-                        <button 
-                          onClick={() => toggleExpand(user.id)}
-                          className="text-blue-400 hover:underline mt-2"
-                        >
-                          Read More
-                        </button>
-                      ) : null}
-                    </div>
-                  ))
-                ) : (
-                  <p className="text-sm text-gray-500">No analysis available</p>
-                )}
-                {expanded[user.id] && (
-                  <button 
-                    onClick={() => toggleExpand(user.id)}
-                    className="text-blue-400 hover:underline mt-2"
-                  >
-                    Show Less
-                  </button>
-                )}
-              </div>
-            </>
-          ))}
+        <div className="overflow-x-auto rounded-xl border border-gray-700">
+          <table className="min-w-full table-auto">
+            <thead className="bg-gray-700">
+              <tr>
+                <th className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-300">Name</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-300">Age</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider text-gray-300">Records</th>
+                <th className="px-6 py-3"></th>
+              </tr>
+            </thead>
+            <motion.tbody
+              className="divide-y divide-gray-700"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              {userWithRecordCounts.map((user) => (
+                <motion.tr
+                  key={user.createdBy}
+                  onClick={() => handleRowClick(user.createdBy)}
+                  className="cursor-pointer transition-colors duration-200 ease-in-out hover:bg-gray-700"
+                  variants={itemVariants}
+                >
+                  <td className="px-6 py-4 whitespace-nowrap font-medium text-white">{user.username}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-300">{user.age || "N/A"}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-gray-300">{user.recordCount}</td>
+                  <td className="px-6 py-4 text-right whitespace-nowrap">
+                    <IconChevronRight size={20} className="text-gray-400" />
+                  </td>
+                </motion.tr>
+              ))}
+            </motion.tbody>
+          </table>
         </div>
       )}
     </div>
