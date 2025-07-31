@@ -73,4 +73,19 @@
 
 ---
 
+<<<<<<< HEAD
 > 🌟 *Empowering Healthcare with AI & Secure Digital Solutions – Welcome to the Future with CaseBase!*
+=======
+## 🖼 Screenshots
+
+### Home Page  
+![Home Page](https://github.com/Jagdish1123/CareBase-Portal/blob/main/src/assets/screenshots/home.png)
+
+### AI Analysis  
+![AI Analysis](https://github.com/Jagdish1123/CareBase-Portal/blob/main/src/assets/screenshots/ai.png)
+
+### Profile Page  
+![Profile Page](https://github.com/Jagdish1123/CareBase-Portal/blob/main/src/assets/screenshots/profile.png)
+
+---
+>>>>>>> 984518adadbd368be9f5a832d6b4471c35747f67

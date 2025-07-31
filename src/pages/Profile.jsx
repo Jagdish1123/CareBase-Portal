@@ -7,7 +7,11 @@ import { IconUserCircle, IconAt, IconCalendar, IconMapPin } from "@tabler/icons-
 const Profile = () => {
   const { currentUser, fetchUserByEmail } = useStateContext();
   const { user } = usePrivy();
+<<<<<<< HEAD
 
+=======
+  console.log(currentUser);
+>>>>>>> 984518adadbd368be9f5a832d6b4471c35747f67
   useEffect(() => {
     if (!currentUser && user?.email?.address) {
       fetchUserByEmail(user.email.address);

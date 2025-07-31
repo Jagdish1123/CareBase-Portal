@@ -6,4 +6,6 @@ import records from "./records.svg";
 import screening from "./screening.svg";
 import user from "./user.svg";
 import apps from "./apps.svg";
-export { sun, search, menu, loader, records, screening, user, apps };
+import chat from "./chat.jpg"
+import chatbot from "./chatbot.png"
+export { sun, search, menu, loader, records, screening, user, apps ,chat,chatbot};
