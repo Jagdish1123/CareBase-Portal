@@ -1,52 +1,60 @@
-import { useState } from "react";
+import  { useState } from "react";
 import { io } from "socket.io-client";
+import { motion } from "framer-motion";
 import Chat from "./Chat";
 
-
+// The socket connection URL needs to be configured correctly for your backend.
+// This is a placeholder and should be updated with the correct server address.
 const socket = io.connect("http://localhost:3001");
 
 function Chats_app() {
-    const [username, setUsername] = useState("");
-    const [room, setRoom] = useState("");
-    const [showChat, setShowChat] = useState(false);
+  const [username, setUsername] = useState("");
+  const [room, setRoom] = useState("");
+  const [showChat, setShowChat] = useState(false);
 
-    const joinRoom = () => {
-        if (username !== "" && room !== "") {
-            socket.emit("join_room", room);
-            setShowChat(true);
-        }
-    };
+  const joinRoom = () => {
+    if (username.trim() !== "" && room.trim() !== "") {
+      socket.emit("join_room", room);
+      setShowChat(true);
+    }
+  };
 
-    return (
-        <div className="flex items-center justify-center min-h-screen bg-[#13131A] p-4">
-            {!showChat ? (
-                <div className="bg-[#1E1E29] shadow-lg rounded-lg p-8 w-full max-w-md transform transition duration-500 ease-in-out hover:scale-105 hover:shadow-xl text-white">
-                    <h3 className="text-2xl font-semibold text-center mb-6">Join A Chat</h3>
-                    <input
-                        type="text"
-                        placeholder="Enter your name..."
-                        onChange={(event) => setUsername(event.target.value)}
-                        className="w-full mb-4 px-4 py-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                    />
-                    <input
-                        type="text"
-                        placeholder="Enter Room ID..."
-                        onChange={(event) => setRoom(event.target.value)}
-                        className="w-full mb-6 px-4 py-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                    />
-                    <button
-                        onClick={joinRoom}
-                        className="w-full px-4 py-2 bg-[#00C54E] text-black rounded-md hover:bg-[#008F3F] transition-all hover:scale-110"
-                    >
-                        Join A Room
-                    </button>
-                </div>
-            ) : (
-                <Chat socket={socket} username={username} room={room} />
-            )}
-        </div>
-    );
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-gray-900 p-4 font-sans text-white">
+      {!showChat ? (
+        <motion.div
+          className="w-full max-w-md rounded-2xl bg-gray-800 p-8 shadow-xl"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h3 className="mb-8 text-3xl font-extrabold text-center text-white">Join a Chat</h3>
+          <input
+            type="text"
+            placeholder="Enter your name..."
+            onChange={(event) => setUsername(event.target.value)}
+            className="mb-4 w-full rounded-full border border-gray-600 bg-gray-700 px-5 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+          <input
+            type="text"
+            placeholder="Enter Room ID..."
+            onChange={(event) => setRoom(event.target.value)}
+            className="mb-8 w-full rounded-full border border-gray-600 bg-gray-700 px-5 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-500"
+          />
+          <motion.button
+            onClick={joinRoom}
+            className="w-full rounded-full bg-green-500 py-3 text-lg font-bold text-gray-900 transition-colors duration-200 hover:bg-green-600"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Join A Room
+          </motion.button>
+        </motion.div>
+      ) : (
+        <Chat socket={socket} username={username} room={room} />
+      )}
+    </div>
+  );
 }
-
 
 export default Chats_app;

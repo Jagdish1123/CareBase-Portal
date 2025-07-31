@@ -1,13 +1,16 @@
-
 import { loader } from '../assets';
 
 const Loader = () => {
   return (
-    <div className="fixed inset-0 z-10 h-screen bg-[rgba(0,0,0,0.7)] flex items-center justify-center flex-col">
-      <img src={loader} alt="loader" className="w-[100px] h-[100px] object-contain"/>
-      <p className="mt-[20px] font-epilogue font-bold text-[20px] text-white text-center">Transaction is in progress <br /> Please wait...</p>
+    <div className="fixed inset-0 z-50 flex h-screen flex-col items-center justify-center bg-black bg-opacity-70">
+      <img src={loader} alt="Loading..." className="h-[100px] w-[100px] object-contain" />
+      <p className="mt-5 text-center font-epilogue text-xl font-bold text-white">
+        Transaction in progress
+        <br />
+        Please wait...
+      </p>
     </div>
-  )
-}
+  );
+};
 
-export default Loader
+export default Loader;
