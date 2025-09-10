@@ -1,55 +1,32 @@
+import { createPool } from 'mysql2/promise';
+import { drizzle } from 'drizzle-orm/mysql2';
+import { json, integer, mysqlTable, serial, varchar } from 'drizzle-orm/mysql-core';
 
-import { sql } from "drizzle-orm";
-import { integer, varchar, pgTable, serial, text } from "drizzle-orm/pg-core";
-
-// users schema
-export const Users = pgTable("users", {
-  id: serial("id").primaryKey(),
-  username: varchar("username").notNull(),
-  age: integer("age").notNull(),
-  location: varchar("location").notNull(),
-  folders: text("folders")
-    .array()
-    .notNull()
-    .default(sql`ARRAY[]::text[]`),
-  treatmentCounts: integer("treatment_counts").notNull(),
-  folder: text("folder")
-    .array()
-    .notNull()
-    .default(sql`ARRAY[]::text[]`),
-  createdBy: varchar("created_by").notNull(),
+// Users Table
+const Users = mysqlTable('users', {
+  id: serial('id').primaryKey(),
+  username: varchar('username', { length: 255 }).notNull(),
+  age: integer('age').notNull(),
+  location: varchar('location', { length: 255 }).notNull(),
+  folders: json('folders').notNull().default('{}'),
+  treatmentCounts: integer('treatment_counts').notNull(),
+  folder: json('folder').notNull().default('{}'),
+  createdBy: varchar('created_by', { length: 255 }).notNull(),
 });
 
-// Doctors table --Jagdish
-export const Doctors = pgTable("doctors", {
-  id: serial("id").primaryKey(),
-  name: varchar("name").notNull(),
-  specialization: varchar("specialization").notNull(),
-  experience: integer("experience").notNull(),
-  location: varchar("location").notNull(),
-  createdBy: varchar("created_by").notNull(),
+// Doctors Table
+const Doctors = mysqlTable('doctors', {
+  id: serial('id').primaryKey(),
+  name: varchar('name', { length: 255 }).notNull(),
+  specialization: varchar('specialization', { length: 255 }).notNull(),
+  experience: integer('experience').notNull(),
+  location: varchar('location', { length: 255 }).notNull(),
+  createdBy: varchar('created_by', { length: 255 }).notNull(),
 });
 
-// Many-to-Many Relationship
-export const DoctorUsers = pgTable("doctor_users", {
-  id: serial("id").primaryKey(),
-  doctorId: integer("doctor_id").references(() => Doctors.id).notNull(),
-  userId: integer("user_id").references(() => Users.id).notNull(),
+// DoctorUsers Table
+const DoctorUsers = mysqlTable('doctor_users', {
+  id: serial('id').primaryKey(),
+  doctorId: integer('doctor_id').notNull().references(() => Doctors.id),
+  userId: integer('user_id').notNull().references(() => Users.id),
 });
-
-
-
-
-
-// records schema
-export const Records = pgTable("records", {
-  id: serial("id").primaryKey(),
-  userId: integer("user_id")
-    .references(() => Users.id)
-    .notNull(),
-  recordName: varchar("record_name").notNull(),
-  analysisResult: varchar("analysis_result").notNull(),
-  kanbanRecords: varchar("kanban_records").notNull(),
-  createdBy: varchar("created_by").notNull(),
-});
-
